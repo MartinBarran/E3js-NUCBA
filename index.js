@@ -95,20 +95,17 @@ const renderizarInfoPizza = (pizza) => {
 
 //E3
 
-  let lastPizza = JSON.parse(localStorage.getItem("Last Searched")) || [];
+ //   let lastPizza = JSON.parse(localStorage.getItem("Last Searched")) || [];
 
-  function renderizarLastSearched (lastPizza) {
-    renderizarInfoPizza(lastPizza);
-  };
+ // function renderizarLastSearched (lastPizza) {
+ //   renderizarInfoPizza(lastPizza);
+ // };
 
-console.log(lastPizza);
-
-    //FUNCIÓN INICIALIZADORA: cuando suceda el evento SUBMIT, 
+  //  //FUNCIÓN INICIALIZADORA: cuando suceda el evento SUBMIT, 
   //se ejecuta mostrarInfoPizzza y (agregado E3) la renderización de la última
   const init =() => {
-    renderizarLastSearched ();
+   // renderizarLastSearched (lastPizza);
     formulario.addEventListener("submit", mostrarInfoPizza);
-   // saveLocalStorage();
   }
 
 init()
