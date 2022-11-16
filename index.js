@@ -87,26 +87,40 @@ const renderizarInfoPizza = (pizza) => {
     }
     const infoPizza = idPizza(Number(pizzaId));
     renderizarInfoPizza(infoPizza);
-    localStorage.setItem("Last Searched", JSON.stringify(infoPizza));  //Agregado de E3; al submitear, almacena en Local Storage la info de la pizza correspondiente input.value
+    localStorage.setItem('Last', JSON.stringify(pizzaId));  //Agregado de E3; al submitear, almacena en Local Storage la info de la pizza correspondiente input.value
     form.reset();    
   }
-  
-
 
 //E3
+//Tomo string del LS y lo parseo para almacenarlo en variable
+   let lastPizza = JSON.parse(localStorage.getItem('Last')) || [];
 
-   let lastPizza = JSON.parse(localStorage.getItem("Last Searched")) || [];
+   //Fc que me permite validar si el número ingresado corresponde a una pizza enlistada
+   function localizarPizzaPorID(num){
+    if (pizzas.find((pizza)=>pizza.id === num)){
+        return true
+    }else{
+        return false
+    }
+  }
 
-    function renderizarLastSearched (lastPizza) {
-   renderizarInfoPizza(lastPizza);
-  };
+  //Fc que, habiendo validado el input como correspondiente a una pizza, renderiza card informativa
+   function renderLastSearch(num){
+    if(localizarPizzaPorID(num) === true){
+        let pizza = pizzas.find((pizza)=>pizza.id === num);
+        contenedor.innerHTML =  `<div><h2 class="titulo-pizza">${pizza.nombre}</h2><h3>Precio: $${pizza.precio}</h3><p>Ingredientes: ${(pizza.ingredientes.join(', '))}</p><img src=${pizza.img} /></div>`
+}
+    };
+
+   console.log(lastPizza);//console.log de testeo
 
     //FUNCIÓN INICIALIZADORA: cuando suceda el evento SUBMIT, 
   //se ejecuta mostrarInfoPizzza y (agregado E3) la renderización de la última
   const init =() => {
-   // renderizarLastSearched (lastPizza);
+    renderLastSearch(Number(lastPizza));
     formulario.addEventListener("submit", mostrarInfoPizza);
   }
 
 init()
 
+console.log(localizarPizzaPorID(Number(lastPizza)))//console.log de testeo
